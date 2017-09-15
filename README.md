@@ -48,7 +48,7 @@ const getUserEntityState = createSelector(
 
 export const entitySelectors = {
   // pass the entity state selector
-  ...createSelectors<Employee>(Employee.schema, getUserEntityState)
+  ...createSelectors<User>(userSchema, getUserEntityState)
 };
 ```
 
@@ -74,7 +74,7 @@ export class UserCrudEffects {
   searchEffect$ = CrudEffectFactory.createSearchEffect(
     this.actions$,
     userSchema,
-    action => this.http.get('employees'));
+    action => this.http.get('users'));
 
   // ...
 }
