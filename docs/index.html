@@ -1,0 +1,278 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ngrx-normalizr</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">ngrx-normalizr</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> ngrx-normalizr</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="wip-ngrx-normalizr-crud">WIP: ngrx-normalizr-crud</h1>
+				<p><a href="https://travis-ci.org/michaelkrone/ngrx-normalizr-crud"><img src="https://travis-ci.org/michaelkrone/ngrx-normalizr-crud.svg?branch=master" alt="Build Status"></a>
+				<img src="https://img.shields.io/badge/aot-compatible-blue.svg" alt="AOT compatible"></p>
+				<blockquote>
+					<p>Actions, effects, reducers, selectors and guards for <a href="https://github.com/michaelkrone/ngrx-normalizr">ngrx-normalizr</a>.</p>
+				</blockquote>
+				<p>This package provides a set of Actions, effects, reducers, selectors and guards for using <a href="https://github.com/michaelkrone/ngrx-normalizr">ngrx-normalizr</a>
+				entity states.</p>
+				<h2 id="installation">Installation</h2>
+				<p>To install this package:</p>
+				<pre><code class="lang-sh">yarn add ngrx-normalizr-crud
+npm i ngrx-normalizr-crud
+</code></pre>
+				<h3 id="peer-dependencies">Peer dependencies</h3>
+				<p><em>ngrx-normalizr-crud</em> uses <code>@ngrx/store</code> and <code>ngrx-normalizer</code> as peer dependencies, so you need to install them if not present already:</p>
+				<pre><code class="lang-sh">yarn add @ngrx/store ngrx-normalizer
+npm i @ngrx/store ngrx-normalizer
+</code></pre>
+				<h2 id="usage">Usage</h2>
+				<p>Also refer to the <a href="https://michaelkrone.github.io/ngrx-normalizr-crud/">Typedoc documentation</a>.</p>
+				<h5 id="reducer-ts">reducer.ts</h5>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { createSelector, combineReducers } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ngrx/store'</span>;
+<span class="hljs-keyword">import</span> { createReducer } <span class="hljs-keyword">from</span> <span class="hljs-string">'ngrx-normalizr-crud'</span>;
+<span class="hljs-keyword">import</span> { User, userSchema } <span class="hljs-keyword">from</span> <span class="hljs-string">'../classes/user'</span>;
+
+<span class="hljs-keyword">const</span> userEntity = createReducer&lt;User&gt;(userSchema);
+
+<span class="hljs-keyword">export</span> reducer = combineReducers({
+  <span class="hljs-comment">//... other feature reducers</span>
+  userEntity
+})
+
+<span class="hljs-comment">// create an entity state selector</span>
+<span class="hljs-keyword">const</span> featureSelector = createFeatureSelector&lt;State&gt;(<span class="hljs-string">'users'</span>);
+<span class="hljs-keyword">const</span> getUserEntityState = createSelector(
+  featureSelector,
+  (state: State) =&gt; state.userEntity
+);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> entitySelectors = {
+  <span class="hljs-comment">// pass the entity state selector</span>
+  ...createSelectors&lt;Employee&gt;(Employee.schema, getUserEntityState)
+};
+</code></pre>
+				<h5 id="actions-ts">actions.ts</h5>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { createActions } <span class="hljs-keyword">from</span> <span class="hljs-string">'ngrx-normalizr-crud'</span>;
+<span class="hljs-keyword">import</span> { User, userSchema } <span class="hljs-keyword">from</span> <span class="hljs-string">'../classes/user'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> actions = createActions&lt;User&gt;(userSchema);
+</code></pre>
+				<h5 id="effects-ts">effects.ts</h5>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { CrudEffectFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'ngrx-normalizr-crud'</span>;
+<span class="hljs-keyword">import</span> { userSchema } <span class="hljs-keyword">from</span> <span class="hljs-string">'../classes/user'</span>;
+
+@Injectable()
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserCrudEffects</span> </span>{
+
+  <span class="hljs-keyword">constructor</span>(private actions$: Actions, private http: HttpClient) {}
+
+  @Effect()
+  searchEffect$ = CrudEffectFactory.createSearchEffect(
+    <span class="hljs-keyword">this</span>.actions$,
+    userSchema,
+    action =&gt; <span class="hljs-keyword">this</span>.http.get(<span class="hljs-string">'employees'</span>));
+
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+				<h2 id="meta">Meta</h2>
+				<p>Michael Krone – <a href="https://twitter.com/DevDig">@DevDig</a> – michael.krone@outlook.com</p>
+				<p>Distributed under the MIT license. See <a href="https://github.com/michaelkrone/ngrx-normalizr-crud/blob/master/LICENSE"><code>LICENSE</code></a> for more information.</p>
+				<p><a href="https://github.com/michaelkrone/ngrx-normalizr-crud">https://github.com/michaelkrone/ngrx-normalizr</a></p>
+				<h2 id="contributing">Contributing</h2>
+				<ol>
+					<li>Fork it (<a href="https://github.com/michaelkrone/ngrx-normalizr-crud">https://github.com/michaelkrone/ngrx-normalizr-crud</a>)</li>
+					<li>Create your feature branch (<code>git checkout -b feature/fooBar</code>)</li>
+					<li>Commit your changes (<code>git commit -am &#39;Add some fooBar&#39;</code>)</li>
+					<li>Push to the branch (<code>git push origin feature/fooBar</code>)</li>
+					<li>Create a new <a href="https://github.com/michaelkrone/ngrx-normalizr-crud/compare?expand=1">Pull Request</a></li>
+				</ol>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_actions_create_actions_.html">"actions/create.actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_actions_delete_actions_.html">"actions/delete.actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_actions_index_.html">"actions/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_actions_search_actions_.html">"actions/search.actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_actions_update_actions_.html">"actions/update.actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_classes_action_name_factory_.html">"classes/action-<wbr>name-<wbr>factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_classes_payload_action_.html">"classes/payload-<wbr>action"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_effects_crud_effect_.html">"effects/crud.effect"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_effects_index_.html">"effects/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_reducers_index_.html">"reducers/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_reducers_reducer_.html">"reducers/reducer"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_selectors_index_.html">"selectors/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_selectors_selectors_.html">"selectors/selectors"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
