@@ -83,13 +83,13 @@ export function createDeleteActions(ns: string): DeleteActions {
 		constructor(public payload: string) {}
 	}
 
-	class DeleteSuccess implements PayloadAction<any> {
+	class DeleteSuccess implements PayloadAction<string> {
 		readonly type = DELETE_SUCCESS;
-		constructor(public payload: any | undefined) {}
+		constructor(public payload: string) {}
 	}
 
 	class DeleteFail implements PayloadAction<any> {
-		readonly type = DELETE_SUCCESS;
+		readonly type = DELETE_FAIL;
 		constructor(public payload: any | undefined) {}
 	}
 	return {

@@ -5,6 +5,7 @@ import { SearchActionNames } from '../actions/search.actions';
 import { CreateActionNames } from '../actions/create.actions';
 import { UpdateActionNames } from '../actions/update.actions';
 import { DeleteActionNames } from '../actions/delete.actions';
+import { PayloadAction } from '../../dist/classes/payload-action';
 
 export interface NormalizedEntityState {
 	loading: boolean;
@@ -64,7 +65,6 @@ export function createReducer(
 			case actionMap.UPDATE: {
 				return {
 					...state,
-					selectedId: action.payload[idAttribute],
 					loading: true,
 					error: false
 				};
@@ -95,30 +95,38 @@ export function createReducer(
 					ids: action.payload.map(
 						(entity: { [idAttribute: string]: string }) => entity[idAttribute]
 					),
-					loading: false,
-					query: state.query
+					loading: false
 				};
 			}
 
-			case actionMap.SEARCH_COMPLETE:
-			case actionMap.CREATE_SUCCESS:
+			case actionMap.CREATE_SUCCESS: {
+				return {
+					...state,
+					ids: [...state.ids, action.payload[idAttribute]],
+					loading: false,
+					error: false
+				};
+			}
+
 			case actionMap.UPDATE_SUCCESS: {
 				return {
 					...state,
 					loading: false,
-					selectedId: state.selectedId,
 					error: false
 				};
 			}
 
 			case actionMap.DELETE_SUCCESS: {
 				let selectedId = state.selectedId;
-				if (selectedId === action.payload[idAttribute]) {
+				if (selectedId === action.payload) {
 					selectedId = null;
 				}
 
+				const ids = state.ids.filter(id => id !== action.payload);
+
 				return {
 					...state,
+					ids,
 					selectedId,
 					loading: false,
 					error: false

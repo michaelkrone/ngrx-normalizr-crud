@@ -4,15 +4,17 @@ import { actionCreators } from 'ngrx-normalizr';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { schema } from 'normalizr';
-import { createActions } from '../actions/index';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 
+import { createActions } from '../actions/index';
+import { PayloadAction } from '../classes/payload-action';
+
 /**
  * Factory class for creating typed "CRUD" effects.
  */
-export class CrudEffectFactory<T> {
+export class EntityCrudEffect<T> {
 	/** The `ngrx-normalizr` actions */
 	private normalizrActions: any;
 	/** The `ngrx-normalizr-crud` actions */
@@ -55,7 +57,9 @@ export class CrudEffectFactory<T> {
    * with an empty array if any error occurs.
    * @param actionHandler The handler to call for searching entities
    */
-	createSearchEffect(actionHandler: (action: Action) => Observable<T[]>) {
+	createSearchEffect(
+		actionHandler: (action: PayloadAction<any>) => Observable<T[]>
+	) {
 		return this.createEffect<T[]>(
 			this.entityActions.SEARCH,
 			actionHandler,
@@ -75,7 +79,9 @@ export class CrudEffectFactory<T> {
    * with the error argument of the observables catch handler.
    * @param actionHandler The handler to call for creating entities
    */
-	createCreateEffect(actionHandler: (action: Action) => Observable<T>) {
+	createCreateEffect(
+		actionHandler: (action: PayloadAction<T>) => Observable<T>
+	) {
 		return this.createEffect<T>(
 			this.entityActions.CREATE,
 			actionHandler,
@@ -95,7 +101,9 @@ export class CrudEffectFactory<T> {
    * with the error argument of the observables catch handler.
    * @param actionHandler The handler to call for creating entities
    */
-	createUpdateEffect(actionHandler: (action: Action) => Observable<T>) {
+	createUpdateEffect(
+		actionHandler: (action: PayloadAction<T>) => Observable<T>
+	) {
 		return this.createEffect<T>(
 			this.entityActions.UPDATE,
 			actionHandler,
@@ -115,7 +123,9 @@ export class CrudEffectFactory<T> {
    * with the error argument of the observables catch handler.
    * @param actionHandler The handler to call for deleting an entity
    */
-	createDeleteEffect(actionHandler: (action: Action) => Observable<string>) {
+	createDeleteEffect(
+		actionHandler: (action: PayloadAction<string>) => Observable<string>
+	) {
 		return this.createEffect<string>(
 			this.entityActions.DELETE,
 			actionHandler,

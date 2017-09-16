@@ -1,1 +1,1 @@
-export * from './crud.effect';
+export * from './entity-crud.effect';
