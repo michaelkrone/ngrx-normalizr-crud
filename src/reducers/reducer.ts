@@ -5,7 +5,6 @@ import { SearchActionNames } from '../actions/search.actions';
 import { CreateActionNames } from '../actions/create.actions';
 import { UpdateActionNames } from '../actions/update.actions';
 import { DeleteActionNames } from '../actions/delete.actions';
-import { PayloadAction } from '../../dist/classes/payload-action';
 
 export interface NormalizedEntityState {
 	loading: boolean;
