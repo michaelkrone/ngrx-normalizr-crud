@@ -105,7 +105,7 @@ npm i @ngrx/store ngrx-normalizer
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> entitySelectors = {
   <span class="hljs-comment">// pass the entity state selector</span>
-  ...createSelectors&lt;Employee&gt;(Employee.schema, getUserEntityState)
+  ...createSelectors&lt;User&gt;(userSchema, getUserEntityState)
 };
 </code></pre>
 				<h5 id="actions-ts">actions.ts</h5>
@@ -115,19 +115,20 @@ npm i @ngrx/store ngrx-normalizer
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> actions = createActions&lt;User&gt;(userSchema);
 </code></pre>
 				<h5 id="effects-ts">effects.ts</h5>
-				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { CrudEffectFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'ngrx-normalizr-crud'</span>;
-<span class="hljs-keyword">import</span> { userSchema } <span class="hljs-keyword">from</span> <span class="hljs-string">'../classes/user'</span>;
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { EntityCrudEffect } <span class="hljs-keyword">from</span> <span class="hljs-string">'ngrx-normalizr-crud'</span>;
+<span class="hljs-keyword">import</span> { User, userSchema } <span class="hljs-keyword">from</span> <span class="hljs-string">'../classes/user'</span>;
 
 @Injectable()
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserCrudEffects</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserCrudEffects</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EntityCrudEffect</span>&lt;<span class="hljs-title">User</span>&gt; </span>{
 
-  <span class="hljs-keyword">constructor</span>(private actions$: Actions, private http: HttpClient) {}
+  <span class="hljs-keyword">constructor</span>(private actions$: Actions, private http: HttpClient) {
+    <span class="hljs-keyword">super</span>(actions$, userSchema);
+  }
 
   @Effect()
-  searchEffect$ = CrudEffectFactory.createSearchEffect(
-    <span class="hljs-keyword">this</span>.actions$,
-    userSchema,
-    action =&gt; <span class="hljs-keyword">this</span>.http.get(<span class="hljs-string">'employees'</span>));
+    searchEffect$ = <span class="hljs-keyword">this</span>.createSearchEffect(<span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span>
+        <span class="hljs-keyword">this</span>.http.get(<span class="hljs-string">'/users'</span>)
+    );
 
   <span class="hljs-comment">// ...</span>
 }
@@ -183,7 +184,7 @@ npm i @ngrx/store ngrx-normalizer
 						<a href="modules/_classes_payload_action_.html">"classes/payload-<wbr>action"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="modules/_effects_crud_effect_.html">"effects/crud.effect"</a>
+						<a href="modules/_effects_entity_crud_effect_.html">"effects/entity-<wbr>crud.effect"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/_effects_index_.html">"effects/index"</a>

@@ -62,19 +62,20 @@ export const actions = createActions<User>(userSchema);
 
 ##### effects.ts
 ```javascript
-import { CrudEffectFactory } from 'ngrx-normalizr-crud';
-import { userSchema } from '../classes/user';
+import { EntityCrudEffect } from 'ngrx-normalizr-crud';
+import { User, userSchema } from '../classes/user';
 
 @Injectable()
-export class UserCrudEffects {
+export class UserCrudEffects extends EntityCrudEffect<User> {
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  constructor(private actions$: Actions, private http: HttpClient) {
+    super(actions$, userSchema);
+  }
 
   @Effect()
-  searchEffect$ = CrudEffectFactory.createSearchEffect(
-    this.actions$,
-    userSchema,
-    action => this.http.get('users'));
+	searchEffect$ = this.createSearchEffect(action =>
+		this.http.get('/users')
+	);
 
   // ...
 }
