@@ -22,22 +22,29 @@ npm i ngrx-normalizr-crud
 yarn add @ngrx/store ngrx-normalizer
 npm i @ngrx/store ngrx-normalizer
 ```
-
 ## Usage
 Also refer to the [Typedoc documentation](https://michaelkrone.github.io/ngrx-normalizr-crud/).
 
 ##### reducer.ts
 ```javascript
-import { createSelector, combineReducers } from '@ngrx/store';
-import { createReducer } from 'ngrx-normalizr-crud';
+import { createReducer, NormalizedEntityState, initialEntityState } from 'ngrx-normalizr-crud';
+
+const entityReducer = createReducer(userSchema);
+
+export function reducer(
+	state: NormalizedEntityState = initialEntityState,
+	action: any
+) {
+  // do any reducer logic for your state or in this case
+  // simply return the result of the entity reducer
+	return entityReducer(state, action);
+}
+```
+
+##### selectors
+```javascript
+import { createSelectors } from 'ngrx-normalizr-crud';
 import { User, userSchema } from '../classes/user';
-
-const userEntity = createReducer<User>(userSchema);
-
-export reducer = combineReducers({
-  //... other feature reducers
-  userEntity
-})
 
 // create an entity state selector
 const featureSelector = createFeatureSelector<State>('users');
@@ -51,7 +58,6 @@ export const entitySelectors = {
   ...createSelectors<User>(userSchema, getUserEntityState)
 };
 ```
-
 ##### actions.ts
 ```javascript
 import { createActions } from 'ngrx-normalizr-crud';
@@ -72,15 +78,34 @@ export class UserCrudEffects extends EntityCrudEffect<User> {
     super(actions$, userSchema);
   }
 
+  // use createSearchEffect, createUpdateEffect ...
   @Effect()
-	searchEffect$ = this.createSearchEffect(action =>
-		this.http.get('/users')
+	searchEffect$ = this.createSearchEffect(
+    action => this.http.get('/users')
 	);
 
   // ...
 }
 ```
 
+## State properties
+```
+loading: boolean;
+selectedId: string;
+query: any;
+error: any;
+```
+
+## Selectors
+```
+getSelectedId: MemoizedSelector<object, NormalizedEntityState['selectedId']>;
+getLoading: MemoizedSelector<object, NormalizedEntityState['loading']>;
+getIds: MemoizedSelector<object, NormalizedEntityState['selectedId'][]>;
+getQuery: MemoizedSelector<object, NormalizedEntityState['query']>;
+getError: MemoizedSelector<object, NormalizedEntityState['error']>;
+getEntities: MemoizedSelector<{}, T[]>;
+getSelectedEntity: MemoizedSelector<any, T>;
+```
 ## Meta
 
 Michael Krone – [@DevDig](https://twitter.com/DevDig) – michael.krone@outlook.com
