@@ -1,6 +1,6 @@
 {
 	"name": "ngrx-normalizr-crud",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description":
 		"CRUD reducer, actions, selectors and effects for ngrx-normalizr states",
 	"main": "./dist/index.js",
