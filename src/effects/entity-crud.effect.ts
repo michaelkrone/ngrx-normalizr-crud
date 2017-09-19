@@ -42,11 +42,11 @@ export class EntityCrudEffect<T> {
 		successActionCreator: (result: T) => [Action, Action],
 		errorActionCreator: (error: any) => Action
 	): Observable<Action> {
-		return this.actions$
-			.ofType(actionType)
-			.switchMap((action: Action) => actionHandler(action))
-			.mergeMap((result: T) => successActionCreator(result))
-			.catch((error: any) => of(errorActionCreator(error)));
+		return this.actions$.ofType(actionType).switchMap((action: Action) =>
+			actionHandler(action)
+				.mergeMap((result: T) => successActionCreator(result))
+				.catch((error: any) => of(errorActionCreator(error)))
+		);
 	}
 
 	/**

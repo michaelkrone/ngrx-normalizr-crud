@@ -8,7 +8,6 @@ import { DeleteActionNames } from '../actions/delete.actions';
 
 export interface NormalizedEntityState {
 	loading: boolean;
-	ids: string[];
 	selectedId: string;
 	query: any;
 	error: any;
@@ -16,7 +15,6 @@ export interface NormalizedEntityState {
 
 export const initialEntityState: NormalizedEntityState = {
 	loading: false,
-	ids: [],
 	selectedId: null,
 	query: '',
 	error: null
@@ -38,9 +36,6 @@ export function createReducer(
 		);
 		return p;
 	}, {});
-
-	const idAttribute = (entitySchema as schema.EntityOptions)
-		.idAttribute as string;
 
 	return function entityStateReducer(
 		state = initialState,
@@ -75,7 +70,6 @@ export function createReducer(
 				if (query === '') {
 					return {
 						...state,
-						ids: [],
 						loading: false,
 						query
 					};
@@ -91,9 +85,6 @@ export function createReducer(
 			case actionMap.SEARCH_COMPLETE: {
 				return {
 					...state,
-					ids: action.payload.map(
-						(entity: { [idAttribute: string]: string }) => entity[idAttribute]
-					),
 					loading: false
 				};
 			}
@@ -101,7 +92,6 @@ export function createReducer(
 			case actionMap.CREATE_SUCCESS: {
 				return {
 					...state,
-					ids: [...state.ids, action.payload[idAttribute]],
 					loading: false,
 					error: false
 				};
@@ -120,12 +110,8 @@ export function createReducer(
 				if (selectedId === action.payload) {
 					selectedId = null;
 				}
-
-				const ids = state.ids.filter(id => id !== action.payload);
-
 				return {
 					...state,
-					ids,
 					selectedId,
 					loading: false,
 					error: false
