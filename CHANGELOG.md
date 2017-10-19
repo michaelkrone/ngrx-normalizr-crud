@@ -1,3 +1,6 @@
+* _0.0.3_
+    * bump version: ngrx-normalizr
+
 * _0.0.2_
     * `EntityCrudEffect` effect creators
 
