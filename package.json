@@ -1,6 +1,6 @@
 {
 	"name": "ngrx-normalizr-crud",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description":
 		"CRUD reducer, actions, selectors and effects for ngrx-normalizr states",
 	"main": "./dist/index.js",
@@ -17,12 +17,12 @@
 	},
 	"readme": "README.md",
 	"repository": "https://github.com/michaelkrone/ngrx-normalizr-crud",
-	"author": "Micharl Krone <michael.krone@outlook.com>",
+	"author": "Michael Krone <michael.krone@outlook.com>",
 	"license": "MIT",
 	"peerDependencies": {
 		"@ngrx/effects": "^4.0.5",
 		"@ngrx/store": "^4.0.3",
-		"ngrx-normalizr": "^1.0.3"
+		"ngrx-normalizr": ">=1.0.3"
 	},
 	"dependencies": {},
 	"devDependencies": {
