@@ -1,8 +1,7 @@
 {
 	"name": "ngrx-normalizr-crud",
 	"version": "0.0.4",
-	"description":
-		"CRUD reducer, actions, selectors and effects for ngrx-normalizr states",
+	"description": "CRUD reducer, actions, selectors and effects for ngrx-normalizr states",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"scripts": {
@@ -10,8 +9,7 @@
 		"prepublishOnly": "yarn aot",
 		"tsc": "rm -rf ./dist && tsc",
 		"aot": "rm -rf ./dist && ./node_modules/.bin/ngc",
-		"docs":
-			"rm -rf ./docs && typedoc --out ./docs --name ngrx-normalizr --readme ./README.md --module commonjs --target ES5 --theme default && yarn docs-github",
+		"docs": "rm -rf ./docs && typedoc --out ./docs --name ngrx-normalizr --readme ./README.md --module commonjs --target ES5 --theme default && yarn docs-github",
 		"docs-github": "touch ./docs/.nojekyll",
 		"test": "./node_modules/.bin/karma start karma-ci.conf.js"
 	},
@@ -26,17 +24,18 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"@angular/compiler": "^4.3.5",
-		"@angular/compiler-cli": "^4.3.5",
-		"@angular/core": "^4.3.5",
-		"@angular/platform-server": "^4.3.5",
-		"@angular/router": "^4.3.6",
+		"@angular/common": "^4.4.6",
+		"@angular/compiler": "^4.4.4",
+		"@angular/compiler-cli": "^4.4.4",
+		"@angular/core": "^4.4.4",
+		"@angular/router": "^4.4.4",
 		"@ngrx/effects": "^4.0.5",
 		"@ngrx/store": "^4.0.3",
 		"@types/jasmine": "^2.5.53",
 		"@types/jasminewd2": "^2.0.2",
 		"@types/node": "^8.0.24",
 		"@types/should": "^8.3.0",
+		"codelyzer": "^3.2.2",
 		"jasmine-core": "^2.7.0",
 		"jasmine-spec-reporter": "^4.2.1",
 		"karma": "^1.7.0",
