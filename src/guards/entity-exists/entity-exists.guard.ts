@@ -32,7 +32,7 @@ export abstract class EntityExistsGuard<T, State> implements CanActivate {
 	hasEntityInStore(id: string): Observable<boolean> {
 		return this.store
 			.select(createSchemaSelectors<T>(this.entitySchema).getNormalizedEntities)
-			.map((entities: any) => !!entities[id])
+			.map((entities: any) => !!entities[this.entitySchema.key][id])
 			.take(1);
 	}
 
