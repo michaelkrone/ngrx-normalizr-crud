@@ -1,3 +1,6 @@
+* _0.0.4_
+    * export entity exist guards
+
 * _0.0.3_
     * bump version: ngrx-normalizr
 
