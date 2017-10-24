@@ -1,3 +1,6 @@
+* _0.0.5_
+    * dispatch the complete query response as the action payload
+
 * _0.0.4_
     * export entity exist guards
 
