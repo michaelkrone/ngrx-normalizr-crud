@@ -22,7 +22,7 @@
 	"peerDependencies": {
 		"@ngrx/effects": "^4.0.5",
 		"@ngrx/store": "^4.0.3",
-		"ngrx-normalizr": ">=1.0.3"
+		"ngrx-normalizr": "^2.0.0"
 	},
 	"dependencies": {},
 	"devDependencies": {
