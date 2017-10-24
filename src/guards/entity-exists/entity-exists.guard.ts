@@ -45,7 +45,10 @@ export abstract class EntityExistsGuard<T, State> implements CanActivate {
 		return this.getForId(id)
 			.do(response => {
 				this.store.dispatch(
-					new AddData<T>({ data: response, schema: this.entitySchema })
+					new AddData<T>({
+						data: Array.isArray(response) ? response : [response],
+						schema: this.entitySchema
+					})
 				);
 				this.store.dispatch(new actions.Load(response));
 			})
