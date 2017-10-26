@@ -19,6 +19,8 @@ import { createActions } from '../../actions/index';
  * to activate this route. Guards must return an observable of true or false.
  */
 export abstract class EntityExistsGuard<T, State> implements CanActivate {
+	public idProperty = 'id';
+
 	abstract store: Store<State>;
 	abstract entitySchema: schema.Entity;
 
@@ -85,6 +87,6 @@ export abstract class EntityExistsGuard<T, State> implements CanActivate {
    * to the 404 page.
    */
 	canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-		return this.hasEntity(route.params.id);
+		return this.hasEntity(route.paramMap.get(this.idProperty));
 	}
 }
