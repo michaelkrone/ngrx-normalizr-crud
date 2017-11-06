@@ -64,7 +64,9 @@ export class EntityCrudEffect<T> {
 			this.entityActions.SEARCH,
 			actionHandler,
 			(result: T[]) => [
-				this.normalizrActions.addData(result),
+				this.normalizrActions.addData(
+					Array.isArray(result) ? result : [result]
+				),
 				new this.entityActions.SearchComplete(result)
 			],
 			(error: any) => new this.entityActions.SearchComplete([])
@@ -86,7 +88,9 @@ export class EntityCrudEffect<T> {
 			this.entityActions.CREATE,
 			actionHandler,
 			(result: T) => [
-				this.normalizrActions.addData(result),
+				this.normalizrActions.addData(
+					Array.isArray(result) ? result : [result]
+				),
 				new this.entityActions.CreateSuccess(result)
 			],
 			(error: any) => new this.entityActions.CreateFail(error)
@@ -108,7 +112,9 @@ export class EntityCrudEffect<T> {
 			this.entityActions.UPDATE,
 			actionHandler,
 			(result: T) => [
-				this.normalizrActions.addData(result),
+				this.normalizrActions.addData(
+					Array.isArray(result) ? result : [result]
+				),
 				new this.entityActions.UpdateSuccess(result)
 			],
 			(error: any) => new this.entityActions.UpdateFail(error)
