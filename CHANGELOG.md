@@ -1,6 +1,6 @@
 * _0.0.10_
 
-	* fix EntitiesExistGuard hasEntitiesInStore check
+	* fix: EntitiesExistGuard hasEntitiesInStore checks the correct entity key now
 	* canActivateChild support for exported guards
 
 * _0.0.5_
