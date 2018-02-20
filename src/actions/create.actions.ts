@@ -6,18 +6,18 @@ import { PayloadAction } from '../classes/payload-action';
  */
 export interface EntityCreateActionNames {
 	/**
-   * Defining the type of the `CREATE` action type
-   */
+	 * Defining the type of the `CREATE` action type
+	 */
 	CREATE: string;
 
 	/**
-   * Defining the type of the `CREATE_SUCCESS` action type
-   */
+	 * Defining the type of the `CREATE_SUCCESS` action type
+	 */
 	CREATE_SUCCESS: string;
 
 	/**
-   * Defining the type of the `CREATE_FAIL` action type
-   */
+	 * Defining the type of the `CREATE_FAIL` action type
+	 */
 	CREATE_FAIL: string;
 }
 
@@ -26,18 +26,18 @@ export interface EntityCreateActionNames {
  */
 export interface CreateActions<T> extends EntityCreateActionNames {
 	/**
-   * Type of the `Create` action
-   */
+	 * Type of the `Create` action
+	 */
 	Create: new (payload: T) => PayloadAction<T>;
 
 	/**
-   * Type of the `CreateSuccess` action
-   */
+	 * Type of the `CreateSuccess` action
+	 */
 	CreateSuccess: new (payload: T) => PayloadAction<T>;
 
 	/**
-   * Type of the `CreateFail` action
-   */
+	 * Type of the `CreateFail` action
+	 */
 	CreateFail: new (payload?: any) => PayloadAction<any>;
 }
 
@@ -46,18 +46,18 @@ export interface CreateActions<T> extends EntityCreateActionNames {
  */
 export const CreateActionNames: EntityCreateActionNames = {
 	/**
-   * Value of the `CREATE` action type
-   */
+	 * Value of the `CREATE` action type
+	 */
 	CREATE: 'Create',
 
 	/**
-   * Value of the `CREATE_SUCCESS` action type
-   */
+	 * Value of the `CREATE_SUCCESS` action type
+	 */
 	CREATE_SUCCESS: 'Create Success',
 
 	/**
-   * Value of the `CREATE_FAIL` action type
-   */
+	 * Value of the `CREATE_FAIL` action type
+	 */
 	CREATE_FAIL: 'Create Fail'
 };
 
@@ -89,7 +89,7 @@ export function createCreateActions<T>(ns: string): CreateActions<T> {
 	}
 
 	class CreateFail implements PayloadAction<any> {
-		readonly type = CREATE_SUCCESS;
+		readonly type = CREATE_FAIL;
 		constructor(public payload: any | undefined) {}
 	}
 

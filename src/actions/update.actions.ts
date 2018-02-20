@@ -6,18 +6,18 @@ import { PayloadAction } from '../classes/payload-action';
  */
 export interface UpdateActionNames {
 	/**
-   * Defining the type of the `UPDATE` action type
-   */
+	 * Defining the type of the `UPDATE` action type
+	 */
 	UPDATE: string;
 
 	/**
-   * Defining the type of the `UPDATE_SUCCESS` action type
-   */
+	 * Defining the type of the `UPDATE_SUCCESS` action type
+	 */
 	UPDATE_SUCCESS: string;
 
 	/**
-   * Defining the type of the `UPDATE_FAIL` action type
-   */
+	 * Defining the type of the `UPDATE_FAIL` action type
+	 */
 	UPDATE_FAIL: string;
 }
 
@@ -26,18 +26,18 @@ export interface UpdateActionNames {
  */
 export interface UpdateActions<T> extends UpdateActionNames {
 	/**
-   * Type of the `Update` action
-   */
+	 * Type of the `Update` action
+	 */
 	Update: new (payload: T) => PayloadAction<T>;
 
 	/**
-   * Type of the `UpdateSuccess` action
-   */
+	 * Type of the `UpdateSuccess` action
+	 */
 	UpdateSuccess: new (payload: T) => PayloadAction<T>;
 
 	/**
-   * Type of the `UpdateFail` action
-   */
+	 * Type of the `UpdateFail` action
+	 */
 	UpdateFail: new (payload?: any) => PayloadAction<any>;
 }
 
@@ -46,18 +46,18 @@ export interface UpdateActions<T> extends UpdateActionNames {
  */
 export const UpdateActionNames: UpdateActionNames = {
 	/**
-   * Value of the `UPDATE` action type
-   */
+	 * Value of the `UPDATE` action type
+	 */
 	UPDATE: 'Update',
 
 	/**
-   * Value of the `UPDATE_SUCCESS` action type
-   */
+	 * Value of the `UPDATE_SUCCESS` action type
+	 */
 	UPDATE_SUCCESS: 'Update Success',
 
 	/**
-   * Value of the `UPDATE_FAIL` action type
-   */
+	 * Value of the `UPDATE_FAIL` action type
+	 */
 	UPDATE_FAIL: 'Update Fail'
 };
 
@@ -89,7 +89,7 @@ export function createUpdateActions<T>(ns: string): UpdateActions<T> {
 	}
 
 	class UpdateFail implements PayloadAction<any> {
-		readonly type = UPDATE_SUCCESS;
+		readonly type = UPDATE_FAIL;
 		constructor(public payload: any | undefined) {}
 	}
 
